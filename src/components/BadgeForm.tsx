@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Upload } from "lucide-react";
+import { Slider } from "@/components/ui/slider";
+import { Upload, ZoomIn, Move } from "lucide-react";
 
 interface BadgeFormProps {
   name: string;
@@ -14,6 +15,12 @@ interface BadgeFormProps {
   setSocialHandle: (v: string) => void;
   onImageUpload: (file: File) => void;
   profileImage: string | null;
+  imageZoom: number;
+  setImageZoom: (v: number) => void;
+  imagePositionX: number;
+  setImagePositionX: (v: number) => void;
+  imagePositionY: number;
+  setImagePositionY: (v: number) => void;
 }
 
 const BadgeForm = ({
@@ -27,14 +34,25 @@ const BadgeForm = ({
   setSocialHandle,
   onImageUpload,
   profileImage,
+  imageZoom,
+  setImageZoom,
+  imagePositionX,
+  setImagePositionX,
+  imagePositionY,
+  setImagePositionY,
 }: BadgeFormProps) => {
   const fileRef = useRef<HTMLInputElement>(null);
 
   return (
     <div className="glass-panel rounded-2xl p-6 space-y-5 w-full max-w-md animate-fade-in-up">
-      <h3 className="font-display font-bold text-lg tracking-wider text-primary glow-text">
-        Generate Badge
-      </h3>
+      <div>
+        <h3 className="font-display font-bold text-lg tracking-wider text-primary glow-text">
+          Generate Badge
+        </h3>
+        <p className="text-[10px] text-muted-foreground tracking-wider mt-1">
+          aecontest.online
+        </p>
+      </div>
 
       <div className="space-y-1.5">
         <Label htmlFor="name" className="font-display text-xs tracking-widest text-muted-foreground uppercase">
@@ -81,6 +99,53 @@ const BadgeForm = ({
           }}
         />
       </div>
+
+      {/* Image Adjustment Controls */}
+      {profileImage && (
+        <div className="space-y-3 p-3 rounded-lg bg-secondary/50 border border-border">
+          <p className="font-display text-[10px] tracking-widest text-muted-foreground uppercase">
+            Adjust Image
+          </p>
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <ZoomIn className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
+              <span className="text-[10px] text-muted-foreground w-10">Zoom</span>
+              <Slider
+                value={[imageZoom]}
+                onValueChange={(v) => setImageZoom(v[0])}
+                min={1}
+                max={3}
+                step={0.1}
+                className="flex-1"
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <Move className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
+              <span className="text-[10px] text-muted-foreground w-10">X</span>
+              <Slider
+                value={[imagePositionX]}
+                onValueChange={(v) => setImagePositionX(v[0])}
+                min={-30}
+                max={30}
+                step={1}
+                className="flex-1"
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <Move className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
+              <span className="text-[10px] text-muted-foreground w-10">Y</span>
+              <Slider
+                value={[imagePositionY]}
+                onValueChange={(v) => setImagePositionY(v[0])}
+                min={-30}
+                max={30}
+                step={1}
+                className="flex-1"
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="space-y-1.5">
         <Label htmlFor="referral" className="font-display text-xs tracking-widest text-muted-foreground uppercase">
