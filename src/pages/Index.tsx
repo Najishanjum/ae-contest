@@ -13,6 +13,9 @@ const Index = () => {
   const [socialHandle, setSocialHandle] = useState("");
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const [downloading, setDownloading] = useState(false);
+  const [imageZoom, setImageZoom] = useState(1);
+  const [imagePositionX, setImagePositionX] = useState(0);
+  const [imagePositionY, setImagePositionY] = useState(0);
   const badgeRef = useRef<HTMLDivElement>(null);
 
   const handleImageUpload = useCallback((file: File) => {
@@ -21,7 +24,12 @@ const Index = () => {
       return;
     }
     const reader = new FileReader();
-    reader.onload = (e) => setProfileImage(e.target?.result as string);
+    reader.onload = (e) => {
+      setProfileImage(e.target?.result as string);
+      setImageZoom(1);
+      setImagePositionX(0);
+      setImagePositionY(0);
+    };
     reader.readAsDataURL(file);
   }, []);
 
@@ -65,7 +73,7 @@ const Index = () => {
           AE <span className="text-primary glow-text">CONTEST</span>
         </h1>
         <p className="text-sm text-muted-foreground mt-2 max-w-md mx-auto">
-          Generate your exclusive digital badge card
+          Generate your exclusive digital badge card — <span className="text-primary">aecontest.online</span>
         </p>
       </header>
 
@@ -83,6 +91,12 @@ const Index = () => {
           setSocialHandle={setSocialHandle}
           onImageUpload={handleImageUpload}
           profileImage={profileImage}
+          imageZoom={imageZoom}
+          setImageZoom={setImageZoom}
+          imagePositionX={imagePositionX}
+          setImagePositionX={setImagePositionX}
+          imagePositionY={imagePositionY}
+          setImagePositionY={setImagePositionY}
         />
 
         {/* Badge preview */}
@@ -99,13 +113,16 @@ const Index = () => {
               rank={rank}
               profileImage={profileImage}
               socialHandle={socialHandle}
+              imageZoom={imageZoom}
+              imagePositionX={imagePositionX}
+              imagePositionY={imagePositionY}
             />
           </div>
 
           <Button
             onClick={handleDownload}
             disabled={downloading}
-            className="font-display tracking-wider gap-2 px-8 py-3 bg-primary hover:bg-primary/90 text-primary-foreground glow-red transition-all duration-300 hover:glow-red-intense"
+            className="font-display tracking-wider gap-2 px-8 py-3 bg-primary hover:bg-primary/90 text-primary-foreground glow-cyan transition-all duration-300 hover:glow-cyan-intense"
             size="lg"
           >
             <Download className="w-4 h-4" />
