@@ -43,7 +43,7 @@ interface BadgeCardProps {
 const BadgeCard = forwardRef<HTMLDivElement, BadgeCardProps>(
   ({ name, referralCode, rank, profileImage, socialHandle, imageZoom, imagePositionX, imagePositionY, tier }, ref) => {
     const formattedRank = rank ? rank.padStart(3, "0") : "000";
-    const tierInfo = tierConfig[tier];
+    const tierInfo = tierConfig[tier] || tierConfig.silver;
     const TierIcon = tierInfo.icon;
 
     const qrData = JSON.stringify({
@@ -56,6 +56,8 @@ const BadgeCard = forwardRef<HTMLDivElement, BadgeCardProps>(
       verified: true,
     });
 
+    const IMG_SIZE = 240;
+
     return (
       <div
         ref={ref}
@@ -66,16 +68,13 @@ const BadgeCard = forwardRef<HTMLDivElement, BadgeCardProps>(
           boxShadow: tierInfo.colors.glow,
         }}
       >
-        {/* Scanline overlay */}
         <div className="absolute inset-0 scanline pointer-events-none z-10" />
-
-        {/* Sparkle effects */}
         <div className="sparkle" style={{ top: '8%', left: '5%', animationDelay: '0s' }} />
         <div className="sparkle" style={{ top: '5%', right: '8%', animationDelay: '0.5s' }} />
         <div className="sparkle" style={{ top: '30%', right: '3%', animationDelay: '1s' }} />
         <div className="sparkle" style={{ bottom: '15%', left: '4%', animationDelay: '1.5s' }} />
 
-        {/* AE CONTEST Header */}
+        {/* Header */}
         <div className="relative z-20 text-center pt-5 pb-3">
           <h2 className="font-display font-black text-2xl tracking-[0.25em] text-foreground glow-text-white italic">
             AE <span style={{ color: tierInfo.colors.text }} className="glow-text">CONTEST</span>
@@ -86,11 +85,7 @@ const BadgeCard = forwardRef<HTMLDivElement, BadgeCardProps>(
         <div className="relative z-20 flex justify-center mb-2">
           <div
             className="flex items-center gap-1.5 px-4 py-1 rounded-full text-[9px] font-display font-bold tracking-[0.3em] uppercase"
-            style={{
-              border: `1px solid ${tierInfo.colors.border}`,
-              background: tierInfo.colors.bg,
-              color: tierInfo.colors.text,
-            }}
+            style={{ border: `1px solid ${tierInfo.colors.border}`, background: tierInfo.colors.bg, color: tierInfo.colors.text }}
           >
             <TierIcon className="w-3 h-3" style={{ fill: tierInfo.colors.text, color: tierInfo.colors.text }} />
             {tierInfo.label} MEMBER
@@ -98,28 +93,20 @@ const BadgeCard = forwardRef<HTMLDivElement, BadgeCardProps>(
           </div>
         </div>
 
-        {/* Profile Image - fixed container, no CSS transform for html2canvas compatibility */}
+        {/* Square Profile Image */}
         <div className="relative z-20 flex flex-col items-center px-6">
           <div
-            className="relative rounded-xl overflow-hidden"
+            className="relative overflow-hidden"
             style={{
-              width: 280,
-              height: 200,
+              width: IMG_SIZE,
+              height: IMG_SIZE,
+              borderRadius: 16,
               border: `2px solid ${tierInfo.colors.border}`,
               boxShadow: tierInfo.colors.glow,
             }}
           >
             {profileImage ? (
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  overflow: 'hidden',
-                }}
-              >
+              <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', overflow: 'hidden' }}>
                 <img
                   src={profileImage}
                   alt={name || "Profile"}
@@ -149,10 +136,7 @@ const BadgeCard = forwardRef<HTMLDivElement, BadgeCardProps>(
             style={{ border: `1px solid ${tierInfo.colors.border}` }}
           >
             <Star className="w-3.5 h-3.5" style={{ fill: tierInfo.colors.text, color: tierInfo.colors.text }} />
-            <span
-              className="font-display text-[10px] tracking-[0.3em] uppercase font-bold"
-              style={{ color: tierInfo.colors.text }}
-            >
+            <span className="font-display text-[10px] tracking-[0.3em] uppercase font-bold" style={{ color: tierInfo.colors.text }}>
               Verified Member
             </span>
             <Star className="w-3.5 h-3.5" style={{ fill: tierInfo.colors.text, color: tierInfo.colors.text }} />
@@ -160,75 +144,49 @@ const BadgeCard = forwardRef<HTMLDivElement, BadgeCardProps>(
         </div>
 
         {/* Name Section */}
-        <div
-          className="relative z-20 mx-5 mt-4 p-3 rounded-lg bg-secondary/30"
-          style={{ border: `1px solid ${tierInfo.colors.border}30` }}
-        >
+        <div className="relative z-20 mx-5 mt-4 p-3 rounded-lg bg-secondary/30" style={{ border: `1px solid ${tierInfo.colors.border}30` }}>
           <p className="text-[10px] tracking-[0.2em] text-muted-foreground font-display uppercase mb-1">Name:</p>
-          <p className="font-display font-bold text-lg tracking-wide text-foreground">
-            {name || "Your Name"}
-          </p>
+          <p className="font-display font-bold text-lg tracking-wide text-foreground">{name || "Your Name"}</p>
         </div>
 
         {/* Rank + Referral Code Row */}
         <div className="relative z-20 mx-5 mt-2 grid grid-cols-2 gap-2">
           <div className="p-3 rounded-lg bg-secondary/30" style={{ border: `1px solid ${tierInfo.colors.border}30` }}>
             <p className="text-[10px] tracking-[0.2em] text-muted-foreground font-display uppercase mb-1">Rank:</p>
-            <p className="font-display font-black text-2xl glow-text" style={{ color: tierInfo.colors.text }}>
-              {formattedRank}
-            </p>
+            <p className="font-display font-black text-2xl glow-text" style={{ color: tierInfo.colors.text }}>{formattedRank}</p>
           </div>
           <div className="p-3 rounded-lg bg-secondary/30" style={{ border: `1px solid ${tierInfo.colors.border}30` }}>
             <p className="text-[10px] tracking-[0.2em] text-muted-foreground font-display uppercase mb-1">Referral Code:</p>
-            <p className="font-display font-black text-lg glow-text" style={{ color: tierInfo.colors.text }}>
-              {referralCode || "AE00000"}
-            </p>
+            <p className="font-display font-black text-lg glow-text" style={{ color: tierInfo.colors.text }}>{referralCode || "AE00000"}</p>
           </div>
         </div>
 
         {/* QR Section */}
         <div className="relative z-20 mx-5 mt-3 flex items-center gap-3">
           <div className="hologram w-[80px] h-[80px] flex-shrink-0 flex items-center justify-center">
-            <span className="text-[6px] text-foreground/60 font-display text-center leading-tight">
-              DIGITAL<br />HOLOGRAM<br />SECURITY
-            </span>
+            <span className="text-[6px] text-foreground/60 font-display text-center leading-tight">DIGITAL<br />HOLOGRAM<br />SECURITY</span>
           </div>
-
           <div className="flex flex-col items-center gap-1 flex-shrink-0">
             <div className="px-2 py-3 rounded" style={{ background: tierInfo.colors.text }}>
-              <span
-                className="font-display text-[7px] tracking-widest font-bold"
-                style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', color: '#0a0a0a' }}
-              >
+              <span className="font-display text-[7px] tracking-widest font-bold" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', color: '#0a0a0a' }}>
                 SCAN TO DOWNLOAD
               </span>
             </div>
             <span style={{ color: tierInfo.colors.text }} className="text-lg">▶</span>
           </div>
-
           <div className="flex flex-col items-center gap-1 flex-shrink-0">
             <div className="p-2 bg-foreground rounded-lg" style={{ border: `1px solid ${tierInfo.colors.border}` }}>
-              <QRCodeSVG
-                value={qrData}
-                size={72}
-                bgColor="#f0f0f0"
-                fgColor="#0a0a0a"
-                level="M"
-              />
+              <QRCodeSVG value={qrData} size={72} bgColor="#f0f0f0" fgColor="#0a0a0a" level="M" />
             </div>
             <div className="px-3 py-0.5 rounded bg-secondary/50" style={{ border: `1px solid ${tierInfo.colors.border}` }}>
-              <span className="font-display text-[9px] tracking-wider font-bold" style={{ color: tierInfo.colors.text }}>
-                {referralCode || "AE00000"}
-              </span>
+              <span className="font-display text-[9px] tracking-wider font-bold" style={{ color: tierInfo.colors.text }}>{referralCode || "AE00000"}</span>
             </div>
           </div>
         </div>
 
         {/* Disclaimer */}
         <div className="relative z-20 mx-5 mt-2">
-          <p className="text-[7px] text-muted-foreground tracking-wider uppercase">
-            Unauthorised copying of card is prohibited
-          </p>
+          <p className="text-[7px] text-muted-foreground tracking-wider uppercase">Unauthorised copying of card is prohibited</p>
         </div>
 
         {/* Divider */}
@@ -236,20 +194,10 @@ const BadgeCard = forwardRef<HTMLDivElement, BadgeCardProps>(
 
         {/* Bottom Logo */}
         <div className="relative z-20 flex items-center justify-center gap-3 py-4">
-          <img
-            src={aeLogo}
-            alt="AE Contest"
-            className="h-10 w-10 rounded-full object-cover"
-            style={{ border: `1px solid ${tierInfo.colors.border}` }}
-            loading="lazy"
-          />
+          <img src={aeLogo} alt="AE Contest" className="h-10 w-10 rounded-full object-cover" style={{ border: `1px solid ${tierInfo.colors.border}` }} loading="lazy" />
           <div>
-            <p className="font-display font-bold text-sm tracking-wider text-foreground">
-              AE <span style={{ color: tierInfo.colors.text }}>CONTEST</span>
-            </p>
-            <p className="text-[8px] tracking-[0.3em] text-muted-foreground">
-              aecontest.online
-            </p>
+            <p className="font-display font-bold text-sm tracking-wider text-foreground">AE <span style={{ color: tierInfo.colors.text }}>CONTEST</span></p>
+            <p className="text-[8px] tracking-[0.3em] text-muted-foreground">aecontest.online</p>
           </div>
         </div>
 
@@ -264,5 +212,4 @@ const BadgeCard = forwardRef<HTMLDivElement, BadgeCardProps>(
 );
 
 BadgeCard.displayName = "BadgeCard";
-
 export default BadgeCard;
