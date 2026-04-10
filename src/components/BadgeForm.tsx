@@ -51,7 +51,7 @@ const BadgeForm = ({
           Full Name
         </Label>
         <Input id="name" value={name} onChange={(e) => setName(e.target.value)}
-          placeholder="Mohammad Najish"
+          placeholder="Najish Onic"
           className="bg-secondary border-border focus:border-primary focus:ring-primary/30" maxLength={50} />
       </div>
 
@@ -136,7 +136,7 @@ const BadgeForm = ({
         <div className="space-y-1.5">
           <Label htmlFor="social" className="font-display text-xs tracking-widest text-muted-foreground uppercase">Social Handle</Label>
           <Input id="social" value={socialHandle} onChange={(e) => setSocialHandle(e.target.value)}
-            placeholder="@handle"
+            placeholder="@ajinavaedge"
             className="bg-secondary border-border focus:border-primary focus:ring-primary/30" maxLength={30} />
         </div>
       </div>
