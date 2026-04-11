@@ -1,5 +1,6 @@
 import { QRCodeSVG } from "qrcode.react";
 import aeLogo from "@/assets/ae-logo.jpg";
+import scannerQr from "@/assets/scanner-qr.jpeg";
 import { forwardRef } from "react";
 import { Star, Shield, Crown, Gem, Award } from "lucide-react";
 
@@ -149,7 +150,7 @@ const BadgeCard = forwardRef<HTMLDivElement, BadgeCardProps>(
           <p className="font-display font-bold text-lg tracking-wide text-foreground">{name || "Your Name"}</p>
         </div>
 
-        {/* Rank + Referral Code Row */}
+        {/* Rank + Referral Code + QR Row */}
         <div className="relative z-20 mx-5 mt-2 grid grid-cols-2 gap-2">
           <div className="p-3 rounded-lg bg-secondary/30" style={{ border: `1px solid ${tierInfo.colors.border}30` }}>
             <p className="text-[10px] tracking-[0.2em] text-muted-foreground font-display uppercase mb-1">Rank:</p>
@@ -161,11 +162,14 @@ const BadgeCard = forwardRef<HTMLDivElement, BadgeCardProps>(
           </div>
         </div>
 
-        {/* QR Section */}
-        <div className="relative z-20 mx-5 mt-3 flex items-center gap-3">
-          <div className="hologram w-[80px] h-[80px] flex-shrink-0 flex items-center justify-center">
-            <span className="text-[6px] text-foreground/60 font-display text-center leading-tight">DIGITAL<br />HOLOGRAM<br />SECURITY</span>
+        {/* Scanner + QR Section */}
+        <div className="relative z-20 mx-5 mt-3 flex items-center justify-between gap-3">
+          {/* Scanner QR (replacing hologram) */}
+          <div className="flex-shrink-0 rounded-lg overflow-hidden" style={{ border: `1px solid ${tierInfo.colors.border}`, boxShadow: tierInfo.colors.glow }}>
+            <img src={scannerQr} alt="Scanner QR" className="w-[80px] h-[80px] object-cover" crossOrigin="anonymous" />
           </div>
+
+          {/* Scan to download label */}
           <div className="flex flex-col items-center gap-1 flex-shrink-0">
             <div className="px-2 py-3 rounded" style={{ background: tierInfo.colors.text }}>
               <span className="font-display text-[7px] tracking-widest font-bold" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', color: '#0a0a0a' }}>
@@ -174,6 +178,8 @@ const BadgeCard = forwardRef<HTMLDivElement, BadgeCardProps>(
             </div>
             <span style={{ color: tierInfo.colors.text }} className="text-lg">▶</span>
           </div>
+
+          {/* Data QR code */}
           <div className="flex flex-col items-center gap-1 flex-shrink-0">
             <div className="p-2 bg-foreground rounded-lg" style={{ border: `1px solid ${tierInfo.colors.border}` }}>
               <QRCodeSVG value={qrData} size={72} bgColor="#f0f0f0" fgColor="#0a0a0a" level="M" />
