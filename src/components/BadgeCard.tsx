@@ -1,5 +1,6 @@
 import { QRCodeSVG } from "qrcode.react";
 import aeLogo from "@/assets/ae-logo.jpg";
+import scannerQr from "@/assets/scanner-qr.jpeg";
 import { forwardRef } from "react";
 import { Star, Shield, Crown, Gem, Award } from "lucide-react";
 
