@@ -169,23 +169,23 @@ const BadgeCard = forwardRef<HTMLDivElement, BadgeCardProps>(
             <img src={scannerQr} alt="Scanner QR" className="w-[80px] h-[80px] object-cover" crossOrigin="anonymous" />
           </div>
 
-          {/* Scan to download label */}
-          <div className="flex flex-col items-center gap-1 flex-shrink-0">
-            <div className="px-2 py-3 rounded" style={{ background: tierInfo.colors.text }}>
-              <span className="font-display text-[7px] tracking-widest font-bold" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', color: '#0a0a0a' }}>
-                SCAN TO DOWNLOAD
-              </span>
+          {/* Data QR code + Scan to download label side by side */}
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <div className="flex flex-col items-center gap-1">
+              <div className="px-2 py-3 rounded" style={{ background: tierInfo.colors.text }}>
+                <span className="font-display text-[7px] tracking-widest font-bold" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed', color: '#0a0a0a' }}>
+                  SCAN TO DOWNLOAD
+                </span>
+              </div>
+              <span style={{ color: tierInfo.colors.text }} className="text-lg">▶</span>
             </div>
-            <span style={{ color: tierInfo.colors.text }} className="text-lg">▶</span>
-          </div>
-
-          {/* Data QR code */}
-          <div className="flex flex-col items-center gap-1 flex-shrink-0">
-            <div className="p-2 bg-foreground rounded-lg" style={{ border: `1px solid ${tierInfo.colors.border}` }}>
-              <QRCodeSVG value={qrData} size={72} bgColor="#f0f0f0" fgColor="#0a0a0a" level="M" />
-            </div>
-            <div className="px-3 py-0.5 rounded bg-secondary/50" style={{ border: `1px solid ${tierInfo.colors.border}` }}>
-              <span className="font-display text-[9px] tracking-wider font-bold" style={{ color: tierInfo.colors.text }}>{referralCode || "AE00000"}</span>
+            <div className="flex flex-col items-center gap-1">
+              <div className="p-2 bg-foreground rounded-lg" style={{ border: `1px solid ${tierInfo.colors.border}` }}>
+                <QRCodeSVG value={qrData} size={72} bgColor="#f0f0f0" fgColor="#0a0a0a" level="M" />
+              </div>
+              <div className="px-3 py-0.5 rounded bg-secondary/50" style={{ border: `1px solid ${tierInfo.colors.border}` }}>
+                <span className="font-display text-[9px] tracking-wider font-bold" style={{ color: tierInfo.colors.text }}>{referralCode || "AE00000"}</span>
+              </div>
             </div>
           </div>
         </div>
