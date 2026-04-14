@@ -13,7 +13,7 @@ import Footer from "@/components/Footer";
 const Index = () => {
   const [name, setName] = useState("");
   const [referralCode, setReferralCode] = useState("");
-  const [rank, setRank] = useState("");
+  const [state, setState] = useState("");
   const [socialHandle, setSocialHandle] = useState("");
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const [downloading, setDownloading] = useState(false);
@@ -107,7 +107,7 @@ const Index = () => {
         <BadgeForm
           name={name} setName={setName}
           referralCode={referralCode} setReferralCode={setReferralCode}
-          rank={rank} setRank={setRank}
+          state={state} setState={setState}
           socialHandle={socialHandle} setSocialHandle={setSocialHandle}
           onImageUpload={handleImageUpload} profileImage={profileImage}
           imageZoom={imageZoom} setImageZoom={setImageZoom}
@@ -121,7 +121,7 @@ const Index = () => {
           <div className="transition-all duration-500 hover:scale-[1.02]">
             <BadgeCard
               ref={badgeRef}
-              name={name} referralCode={referralCode} rank={rank}
+              name={name} referralCode={referralCode} state={state}
               profileImage={profileImage} socialHandle={socialHandle}
               imageZoom={imageZoom} imagePositionX={imagePositionX} imagePositionY={imagePositionY}
               tier={tier}
