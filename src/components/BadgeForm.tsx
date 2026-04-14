@@ -11,8 +11,8 @@ interface BadgeFormProps {
   setName: (v: string) => void;
   referralCode: string;
   setReferralCode: (v: string) => void;
-  rank: string;
-  setRank: (v: string) => void;
+  state: string;
+  setState: (v: string) => void;
   socialHandle: string;
   setSocialHandle: (v: string) => void;
   onImageUpload: (file: File) => void;
@@ -28,7 +28,7 @@ interface BadgeFormProps {
 }
 
 const BadgeForm = ({
-  name, setName, referralCode, setReferralCode, rank, setRank,
+  name, setName, referralCode, setReferralCode, state, setState,
   socialHandle, setSocialHandle, onImageUpload, profileImage,
   imageZoom, setImageZoom, imagePositionX, setImagePositionX,
   imagePositionY, setImagePositionY, tier, setTier,
@@ -128,10 +128,10 @@ const BadgeForm = ({
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-1.5">
-          <Label htmlFor="rank" className="font-display text-xs tracking-widest text-muted-foreground uppercase">Rank</Label>
-          <Input id="rank" type="number" value={rank} onChange={(e) => setRank(e.target.value)}
-            placeholder="1" min={1}
-            className="bg-secondary border-border focus:border-primary focus:ring-primary/30 font-display" />
+          <Label htmlFor="state" className="font-display text-xs tracking-widest text-muted-foreground uppercase">State</Label>
+          <Input id="state" value={state} onChange={(e) => setState(e.target.value)}
+            placeholder="Maharashtra"
+            className="bg-secondary border-border focus:border-primary focus:ring-primary/30" maxLength={30} />
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="social" className="font-display text-xs tracking-widest text-muted-foreground uppercase">Social Handle</Label>

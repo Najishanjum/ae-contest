@@ -32,7 +32,7 @@ const tierConfig: Record<BadgeTier, { label: string; colors: { border: string; t
 interface BadgeCardProps {
   name: string;
   referralCode: string;
-  rank: string;
+  state: string;
   profileImage: string | null;
   socialHandle: string;
   imageZoom: number;
@@ -42,14 +42,13 @@ interface BadgeCardProps {
 }
 
 const BadgeCard = forwardRef<HTMLDivElement, BadgeCardProps>(
-  ({ name, referralCode, rank, profileImage, socialHandle, imageZoom, imagePositionX, imagePositionY, tier }, ref) => {
-    const formattedRank = rank ? rank.padStart(3, "0") : "000";
+  ({ name, referralCode, state, profileImage, socialHandle, imageZoom, imagePositionX, imagePositionY, tier }, ref) => {
     const tierInfo = tierConfig[tier] || tierConfig.silver;
     const TierIcon = tierInfo.icon;
 
     const qrData = JSON.stringify({
       name: name || "Unknown",
-      rank: formattedRank,
+      state: state || "N/A",
       referralCode: referralCode || "AE00000",
       socialHandle: socialHandle || "",
       website: "aecontest.online",
@@ -150,15 +149,15 @@ const BadgeCard = forwardRef<HTMLDivElement, BadgeCardProps>(
           <p className="font-display font-bold text-lg tracking-wide text-foreground">{name || "Your Name"}</p>
         </div>
 
-        {/* Rank + Referral Code + QR Row */}
+        {/* Referral Code + State Row */}
         <div className="relative z-20 mx-5 mt-2 grid grid-cols-2 gap-2">
-          <div className="p-3 rounded-lg bg-secondary/30" style={{ border: `1px solid ${tierInfo.colors.border}30` }}>
-            <p className="text-[10px] tracking-[0.2em] text-muted-foreground font-display uppercase mb-1">Rank:</p>
-            <p className="font-display font-black text-2xl glow-text" style={{ color: tierInfo.colors.text }}>{formattedRank}</p>
-          </div>
           <div className="p-3 rounded-lg bg-secondary/30" style={{ border: `1px solid ${tierInfo.colors.border}30` }}>
             <p className="text-[10px] tracking-[0.2em] text-muted-foreground font-display uppercase mb-1">Referral Code:</p>
             <p className="font-display font-black text-lg glow-text" style={{ color: tierInfo.colors.text }}>{referralCode || "AE00000"}</p>
+          </div>
+          <div className="p-3 rounded-lg bg-secondary/30" style={{ border: `1px solid ${tierInfo.colors.border}30` }}>
+            <p className="text-[10px] tracking-[0.2em] text-muted-foreground font-display uppercase mb-1">State:</p>
+            <p className="font-display font-bold text-sm glow-text" style={{ color: tierInfo.colors.text }}>{state || "Your State"}</p>
           </div>
         </div>
 
