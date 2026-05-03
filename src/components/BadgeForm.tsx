@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Upload, ZoomIn, Move } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import type { BadgeTier } from "./BadgeCard";
+import { type BadgeTier, themeOptions } from "./BadgeCard";
 
 interface BadgeFormProps {
   name: string;
