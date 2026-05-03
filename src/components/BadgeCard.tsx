@@ -88,7 +88,7 @@ const BadgeCard = forwardRef<HTMLDivElement, BadgeCardProps>(
             style={{
               width: IMG_SIZE,
               height: IMG_SIZE,
-              borderRadius: 16,
+              borderRadius: '50%',
               border: `2px solid ${tierInfo.colors.border}`,
               boxShadow: tierInfo.colors.glow,
             }}
