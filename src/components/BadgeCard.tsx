@@ -56,14 +56,14 @@ const BadgeCard = forwardRef<HTMLDivElement, BadgeCardProps>(
       verified: true,
     });
 
-    const IMG_SIZE = 240;
+    const IMG_SIZE = 180;
 
     return (
       <div
         ref={ref}
-        className="relative w-[380px] badge-texture rounded-2xl overflow-hidden select-none"
+        className="relative w-[320px] badge-texture rounded-2xl overflow-hidden select-none"
         style={{
-          minHeight: 640,
+          minHeight: 540,
           border: `1px solid ${tierInfo.colors.border}`,
           boxShadow: tierInfo.colors.glow,
         }}
