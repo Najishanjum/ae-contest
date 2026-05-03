@@ -20,7 +20,7 @@ const Index = () => {
   const [imageZoom, setImageZoom] = useState(1);
   const [imagePositionX, setImagePositionX] = useState(0);
   const [imagePositionY, setImagePositionY] = useState(0);
-  const [tier, setTier] = useState<BadgeTier>("silver");
+  const [tier, setTier] = useState<BadgeTier>("cyber");
   const badgeRef = useRef<HTMLDivElement>(null);
 
   const handleImageUpload = useCallback((file: File) => {
