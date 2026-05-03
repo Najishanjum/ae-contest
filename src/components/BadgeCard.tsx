@@ -56,14 +56,14 @@ const BadgeCard = forwardRef<HTMLDivElement, BadgeCardProps>(
       verified: true,
     });
 
-    const IMG_SIZE = 240;
+    const IMG_SIZE = 180;
 
     return (
       <div
         ref={ref}
-        className="relative w-[380px] badge-texture rounded-2xl overflow-hidden select-none"
+        className="relative w-[320px] badge-texture rounded-2xl overflow-hidden select-none"
         style={{
-          minHeight: 640,
+          minHeight: 540,
           border: `1px solid ${tierInfo.colors.border}`,
           boxShadow: tierInfo.colors.glow,
         }}
@@ -81,26 +81,14 @@ const BadgeCard = forwardRef<HTMLDivElement, BadgeCardProps>(
           </h2>
         </div>
 
-        {/* Tier Badge */}
-        <div className="relative z-20 flex justify-center mb-2">
-          <div
-            className="flex items-center gap-1.5 px-4 py-1 rounded-full text-[9px] font-display font-bold tracking-[0.3em] uppercase"
-            style={{ border: `1px solid ${tierInfo.colors.border}`, background: tierInfo.colors.bg, color: tierInfo.colors.text }}
-          >
-            <TierIcon className="w-3 h-3" style={{ fill: tierInfo.colors.text, color: tierInfo.colors.text }} />
-            {tierInfo.label} MEMBER
-            <TierIcon className="w-3 h-3" style={{ fill: tierInfo.colors.text, color: tierInfo.colors.text }} />
-          </div>
-        </div>
-
         {/* Square Profile Image */}
-        <div className="relative z-20 flex flex-col items-center px-6">
+        <div className="relative z-20 flex flex-col items-center px-6 mt-2">
           <div
             className="relative overflow-hidden"
             style={{
               width: IMG_SIZE,
               height: IMG_SIZE,
-              borderRadius: 16,
+              borderRadius: '50%',
               border: `2px solid ${tierInfo.colors.border}`,
               boxShadow: tierInfo.colors.glow,
             }}
