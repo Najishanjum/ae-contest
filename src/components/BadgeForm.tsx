@@ -3,8 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Upload, ZoomIn, Move } from "lucide-react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { type BadgeTier, themeOptions } from "./BadgeCard";
+import { type BadgeTier } from "./BadgeCard";
 
 interface BadgeFormProps {
   name: string;
@@ -23,15 +22,15 @@ interface BadgeFormProps {
   setImagePositionX: (v: number) => void;
   imagePositionY: number;
   setImagePositionY: (v: number) => void;
-  tier: BadgeTier;
-  setTier: (v: BadgeTier) => void;
+  tier?: BadgeTier;
+  setTier?: (v: BadgeTier) => void;
 }
 
 const BadgeForm = ({
   name, setName, referralCode, setReferralCode, state, setState,
   socialHandle, setSocialHandle, onImageUpload, profileImage,
   imageZoom, setImageZoom, imagePositionX, setImagePositionX,
-  imagePositionY, setImagePositionY, tier, setTier,
+  imagePositionY, setImagePositionY,
 }: BadgeFormProps) => {
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -74,46 +73,6 @@ const BadgeForm = ({
         </button>
         <input ref={fileRef} type="file" accept="image/*" className="hidden"
           onChange={(e) => { const file = e.target.files?.[0]; if (file) onImageUpload(file); }} />
-      </div>
-
-      {profileImage && (
-        <div className="space-y-3 p-3 rounded-lg bg-secondary/50 border border-border">
-          <p className="font-display text-[10px] tracking-widest text-muted-foreground uppercase">Adjust Image</p>
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <ZoomIn className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
-              <span className="text-[10px] text-muted-foreground w-10">Zoom</span>
-              <Slider value={[imageZoom]} onValueChange={(v) => setImageZoom(v[0])} min={1} max={3} step={0.1} className="flex-1" />
-            </div>
-            <div className="flex items-center gap-2">
-              <Move className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
-              <span className="text-[10px] text-muted-foreground w-10">X</span>
-              <Slider value={[imagePositionX]} onValueChange={(v) => setImagePositionX(v[0])} min={-50} max={50} step={1} className="flex-1" />
-            </div>
-            <div className="flex items-center gap-2">
-              <Move className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
-              <span className="text-[10px] text-muted-foreground w-10">Y</span>
-              <Slider value={[imagePositionY]} onValueChange={(v) => setImagePositionY(v[0])} min={-50} max={50} step={1} className="flex-1" />
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Card Theme */}
-      <div className="space-y-1.5">
-        <Label className="font-display text-xs tracking-widest text-muted-foreground uppercase">
-          Card Theme
-        </Label>
-        <Select value={tier} onValueChange={(v) => setTier(v as BadgeTier)}>
-          <SelectTrigger className="bg-secondary border-border focus:border-primary">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {themeOptions.map((t) => (
-              <SelectItem key={t.value} value={t.value}>{t.emoji} {t.label}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
       </div>
 
       <div className="space-y-1.5">
