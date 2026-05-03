@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Upload, ZoomIn, Move } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import type { BadgeTier } from "./BadgeCard";
+import { type BadgeTier, themeOptions } from "./BadgeCard";
 
 interface BadgeFormProps {
   name: string;
@@ -99,20 +99,19 @@ const BadgeForm = ({
         </div>
       )}
 
-      {/* Badge Tier */}
+      {/* Card Theme */}
       <div className="space-y-1.5">
         <Label className="font-display text-xs tracking-widest text-muted-foreground uppercase">
-          Badge Tier
+          Card Theme
         </Label>
         <Select value={tier} onValueChange={(v) => setTier(v as BadgeTier)}>
           <SelectTrigger className="bg-secondary border-border focus:border-primary">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="silver">🛡️ Silver</SelectItem>
-            <SelectItem value="gold">🏆 Gold</SelectItem>
-            <SelectItem value="platinum">👑 Platinum</SelectItem>
-            <SelectItem value="diamond">💎 Diamond</SelectItem>
+            {themeOptions.map((t) => (
+              <SelectItem key={t.value} value={t.value}>{t.emoji} {t.label}</SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>
